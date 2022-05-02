@@ -22,3 +22,12 @@ fit <- fit_poisson_nmf(counts,k = 13,init.method = "random",method = "em",
                        numiter = 20,control = list(nc = 2))
 fit <- fit_poisson_nmf(counts,fit0 = fit,method = "scd",numiter = 180,
                        control = list(numiter = 4,nc = 2,extrapolate = TRUE))
+
+# Create Structure plot.
+# TO DO.
+
+# Check whether any topics capture mouse effects.
+# TO DO.
+
+# Save results to file.
+# TO DO.
