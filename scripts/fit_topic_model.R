@@ -1,5 +1,10 @@
 library(data.table)
 library(fastTopics)
+library(ggplot2)
+library(cowplot)
+
+# Initialize the sequence of pseudorandom numbers.
+set.seed(1)
 
 # Load the count data.
 counts <- fread("../data/raw_read_counts.csv.gz")
@@ -23,8 +28,27 @@ fit <- fit_poisson_nmf(counts,k = 13,init.method = "random",method = "em",
 fit <- fit_poisson_nmf(counts,fit0 = fit,method = "scd",numiter = 180,
                        control = list(numiter = 4,nc = 2,extrapolate = TRUE))
 
+# Plot the improvement in the solution over time.
+p1 <- plot_progress(fit,x = "timing",y = "loglik",colors = "black",
+                    add.point.every = 10,e = 1e-4) +
+  guides(color = "none",fill = "none",shape = "none",
+         linetype = "none",size = "none")
+p2 <- plot_progress(fit,x = "timing",y = "res",colors = "black",
+                    add.point.every = 10,e = 1e-4) +
+  guides(color = "none",fill = "none",shape = "none",
+         linetype = "none",size = "none")
+plot_grid(p1,p2)
+
 # Create Structure plot.
-# TO DO.
+set.seed(1)
+pca_embed_method <- function (fit, ...)
+  drop(pca_from_topics(fit,dims = 1))
+p3 <- structure_plot(fit,grouping = samples$tissue,gap = 3,
+                     colors = c("darkblue","dodgerblue","darkred",
+                                "forestgreen","limegreen","gold","darkorange",
+                                "gainsboro","magenta","darkmagenta",
+                                "sienna","tomato","lightskyblue"),
+                     embed_method = pca_embed_method)
 
 # Check whether any topics capture mouse effects.
 # TO DO.
