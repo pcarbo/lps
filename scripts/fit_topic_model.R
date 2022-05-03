@@ -22,11 +22,11 @@ samples <- data.frame(tissue    = sapply(samples,"[[",1),
 j <- which(colSums(counts) > 20)
 counts <- counts[,j]
 
-# Fit a Poisson NMF model with k = 13 topics.
-fit <- fit_poisson_nmf(counts,k = 13,init.method = "random",method = "em",
-                       numiter = 20,control = list(nc = 2))
+# Fit a Poisson NMF model with k = 16 topics.
+fit <- fit_poisson_nmf(counts,k = 16,init.method = "random",method = "em",
+                       numiter = 20,control = list(nc = 4))
 fit <- fit_poisson_nmf(counts,fit0 = fit,method = "scd",numiter = 180,
-                       control = list(numiter = 4,nc = 2,extrapolate = TRUE))
+                       control = list(numiter = 4,nc = 4,extrapolate = TRUE))
 
 # Plot the improvement in the solution over time.
 p1 <- plot_progress(fit,x = "timing",y = "loglik",colors = "black",
@@ -46,8 +46,9 @@ pca_embed_method <- function (fit, ...)
 p3 <- structure_plot(fit,grouping = samples$tissue,gap = 3,
                      colors = c("darkblue","dodgerblue","darkred",
                                 "forestgreen","limegreen","gold","darkorange",
-                                "gainsboro","magenta","darkmagenta",
-                                "sienna","tomato","lightskyblue"),
+                                "olivedrab","magenta","darkmagenta",
+                                "sienna","tomato","lightskyblue",
+                                "royalblue","lightgray","dimgray"),
                      embed_method = pca_embed_method)
 
 # Check whether any topics capture mouse effects.
