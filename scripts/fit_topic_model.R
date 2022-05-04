@@ -12,9 +12,9 @@ source("../code/lps_data.R")
 set.seed(1)
 
 # Load the count data.
+cat("Loading count data.\n")
 dat     <- read_lps_data("../data/raw_read_counts.csv.gz")
 samples <- dat$samples
-genes   <- dat$genes
 counts  <- dat$counts
 
 # Remove genes with very low (or no) expression.
@@ -31,4 +31,4 @@ fit <- fit_poisson_nmf(counts,fit0 = fit,method = "scd",numiter = 180,
 # TO DO.
 
 # Save results to file.
-# TO DO.
+save(list = "fit",file = "fit-lps-k=18.RData")

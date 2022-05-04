@@ -10,5 +10,5 @@ read_lps_data <- function (file) {
   samples <- data.frame(tissue    = sapply(samples,"[[",1),
                         timepoint = sapply(samples,"[[",2),
                         mouse     = sapply(samples,"[[",3))
-  return(list(samples = samples,genes = genes,counts = counts))
+  return(list(samples = samples,counts = counts))
 }
