@@ -44,11 +44,12 @@ set.seed(1)
 pca_embed_method <- function (fit, ...)
   drop(pca_from_topics(fit,dims = 1))
 p3 <- structure_plot(fit,grouping = samples$tissue,gap = 3,
-                     colors = c("darkblue","dodgerblue","darkred",
-                                "forestgreen","limegreen","gold","darkorange",
+                     colors = c("darkblue","dodgerblue","darkorange",
+                                "forestgreen","limegreen","tomato","darkred",
                                 "olivedrab","magenta","darkmagenta",
-                                "sienna","tomato","lightskyblue",
-                                "royalblue","lightgray","dimgray"),
+                                "sienna","royalblue","lightskyblue",
+                                "gold","lightgray","cornflowerblue"),
+                     topics = c(15,3,4,5,6,7,8,9,10,11,12,13,2,14,1,16),
                      embed_method = pca_embed_method)
 
 # Check whether any topics capture mouse effects.
