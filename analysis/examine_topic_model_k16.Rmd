@@ -1,6 +1,56 @@
+---
+title: "Examine topic modeling results with k = 16 topics"
+author: Peter Carbonetto
+output: workflowr::wflow_html
+---
+
+*Add text here giving an overview of this analysis.*
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center",dpi = 120)
+```
+
+Load the packages used in the analysis.
+
+```{r load-pkgs, message=FALSE}
+library(data.table)
+library(fastTopics)
+library(ggplot2)
+library(cowplot)
+source("../code/lps_data.R")
+```
+
+Initialize the sequence of pseudorandom numbers.
+
+```{r set-seed}
+set.seed(1)
+```
+
+Load the count data.
+
+```{r load-data}
+dat <- read_lps_data("../data/raw_read_counts.csv.gz")
+samples <- dat$samples
+counts  <- dat$counts
+```
+
+Remove genes with very low (or no) expression.
+
+```{r prepare-data}
+j <- which(colSums(counts) > 20)
+counts <- counts[,j]
+```
+
+Load the results of the topic modeling analysis.
+
+```{r load-results}
+load("../output/fit-lps-k=16.RData")
+```
+
 Plot the improvement in the solution over time.
 
-```{r plot-progress}
+```{r plot-progress, fig.height=2.25, fig.width=5}
 p1 <- plot_progress(fit,x = "timing",y = "loglik",colors = "black",
                     add.point.every = 10,e = 1e-4) +
   guides(color = "none",fill = "none",shape = "none",
@@ -12,18 +62,22 @@ p2 <- plot_progress(fit,x = "timing",y = "res",colors = "black",
 plot_grid(p1,p2)
 ```
 
-Create Structure plot.
+Visualize the structure identified in each of the tissues using
+a Structure plot:
 
-```{r structure-plot}
+```{r structure-plot, fig.height=1.75, fig.width=8}
 set.seed(1)
+topic_colors <- c("darkblue","dodgerblue","darkorange","forestgreen",
+                  "limegreen","tomato","darkred","olivedrab","magenta",
+				  "darkmagenta","sienna","royalblue","lightskyblue",
+                  "gold","red","cyan")
 pca_embed_method <- function (fit, ...)
   drop(pca_from_topics(fit,dims = 1))
-p3 <- structure_plot(fit,grouping = samples$tissue,gap = 3,
-                     colors = c("darkblue","dodgerblue","darkorange",
-                                "forestgreen","limegreen","tomato","darkred",
-                                "olivedrab","magenta","darkmagenta",
-                                "sienna","royalblue","lightskyblue",
-                                "gold","lightgray","cornflowerblue"),
-                     topics = c(15,3,4,5,6,7,8,9,10,11,12,13,2,14,1,16),
-                     embed_method = pca_embed_method)
+p <- structure_plot(fit,grouping = samples$tissue,gap = 3,
+                    colors = topic_colors,
+                    topics = c(15,3,4,5,6,7,8,9,10,11,12,13,2,14,1,16),
+                    embed_method = pca_embed_method) +
+  theme(legend.key.height = unit(0.15,"cm"),
+        legend.text = element_text(size = 7))
+print(p)
 ```
