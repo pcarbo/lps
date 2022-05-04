@@ -2,10 +2,9 @@
 #
 #  sinteractive -p broadwl -c 8 --mem=8G --time=24:00:00
 #
+library(tools)
 library(data.table)
 library(fastTopics)
-library(ggplot2)
-library(cowplot)
 source("../code/lps_data.R")
 
 # Initialize the sequence of pseudorandom numbers.
@@ -13,7 +12,7 @@ set.seed(1)
 
 # Load the count data.
 cat("Loading count data.\n")
-dat     <- read_lps_data("../data/raw_read_counts.csv.gz")
+dat <- read_lps_data("../data/raw_read_counts.csv.gz")
 samples <- dat$samples
 counts  <- dat$counts
 
@@ -32,3 +31,4 @@ fit <- fit_poisson_nmf(counts,fit0 = fit,method = "scd",numiter = 180,
 
 # Save results to file.
 save(list = "fit",file = "fit-lps-k=18.RData")
+resaveRdaFiles("fit-lps-k=18.RData")
