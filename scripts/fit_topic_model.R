@@ -1,3 +1,4 @@
+# TO DO: Explain here what this script is for, and how to use it.
 library(data.table)
 library(fastTopics)
 library(ggplot2)
@@ -45,6 +46,9 @@ p3 <- structure_plot(fit,grouping = samples$tissue,gap = 3,
                                 "gold","lightgray","cornflowerblue"),
                      topics = c(15,3,4,5,6,7,8,9,10,11,12,13,2,14,1,16),
                      embed_method = pca_embed_method)
+
+# Perform DE analysis using topic model.
+# TO DO.
 
 # Save results to file.
 # TO DO.
