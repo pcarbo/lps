@@ -29,6 +29,9 @@ fit <- fit_poisson_nmf(counts,fit0 = fit,method = "scd",numiter = 180,
 # Perform DE analysis using topic model.
 # TO DO.
 
+# Perform DE analysis using topic model with merged topics.
+# TO DO.
+
 # Save results to file.
-save(list = "fit",file = "fit-lps-k=18.RData")
-resaveRdaFiles("fit-lps-k=18.RData")
+save(list = "fit",file = "fit-lps-k=16.RData")
+resaveRdaFiles("fit-lps-k=16.RData")
