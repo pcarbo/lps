@@ -7,16 +7,10 @@ library(cowplot)
 set.seed(1)
 
 # Load the count data.
-counts <- fread("../data/raw_read_counts.csv.gz")
-class(counts) <- "data.frame"
-genes <- counts[,1]
-counts <- t(as.matrix(counts[,-1]))
-colnames(counts) <- genes
-samples <- rownames(counts)
-samples <- strsplit(samples,"_")
-samples <- data.frame(tissue    = sapply(samples,"[[",1),
-                      timepoint = sapply(samples,"[[",2),
-                      mouse     = sapply(samples,"[[",3))
+dat     <- read_lps_data("../data/raw_read_counts.csv.gz")
+samples <- dat$samples
+genes   <- dat$genes
+counts  <- dat$counts
 
 # Remove genes with very low (or no) expression.
 j <- which(colSums(counts) > 20)
@@ -51,9 +45,6 @@ p3 <- structure_plot(fit,grouping = samples$tissue,gap = 3,
                                 "gold","lightgray","cornflowerblue"),
                      topics = c(15,3,4,5,6,7,8,9,10,11,12,13,2,14,1,16),
                      embed_method = pca_embed_method)
-
-# Check whether any topics capture mouse effects.
-# TO DO.
 
 # Save results to file.
 # TO DO.
