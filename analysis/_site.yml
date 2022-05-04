@@ -1,17 +1,17 @@
-name: "lps topics"
+name: lps topics
 output_dir: ../docs
 navbar:
-  title: "lps topics"
+  title: lps topics
   left:
-  - text: Home
-    href: index.html
-  - text: About
-    href: about.html
-  - text: License
-    href: license.html
+    - text: Overview
+      href: index.html
+  right:
+    - text: source
+      href: https://github.com/pcarbo/lps
 output:
   workflowr::wflow_html:
-    toc: yes
-    toc_float: yes
-    theme: cosmo
+    toc: no
+    theme: readable
     highlight: textmate
+    lib_dir: site_libs
+    self_contained: no
