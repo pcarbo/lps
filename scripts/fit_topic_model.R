@@ -1,6 +1,6 @@
 # TO DO: Explain here what this script is for, and how to use it.
 #
-#  sinteractive -p broadwl -c 8 --mem=8G --time=24:00:00
+#  sinteractive -p broadwl -c 8 --mem=16G --time=60:00:00
 #
 library(tools)
 library(data.table)
@@ -26,12 +26,27 @@ fit <- fit_poisson_nmf(counts,k = 16,init.method = "random",method = "em",
 fit <- fit_poisson_nmf(counts,fit0 = fit,method = "scd",numiter = 180,
                        control = list(numiter = 4,nc = 8,extrapolate = TRUE))
 
-# Perform DE analysis using topic model.
-# TO DO.
+# Perform DE analysis using the k = 16 topic model.
+t0 <- proc.time()
+de <- de_analysis(fit,counts,shrink.method = "ash",pseudocount = 0.1,
+                  control = list(ns = 1e3,nc = 8))
+t1 <- proc.time()
+timing <- t1 - t0
+cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 
-# Perform DE analysis using topic model with merged topics.
-# TO DO.
+# Perform DE analysis using the topic model after merging some topics. 
+fit_merged <- poisson2multinom(fit)
+fit_merged <- merge_topics(fit_merged,c("k1","k5"))  # PBMC topics
+fit_merged <- merge_topics(fit_merged,c("k2","k13")) # BM topics
+fit_merged <- merge_topics(fit_merged,c("k6","k14")) # LI topics
+t0 <- proc.time()
+de_merged <- de_analysis(fit_merged,counts,shrink.method = "ash",
+                         pseudocount = 0.1,control = list(ns = 1e3,nc = 8))
+t1 <- proc.time()
+timing <- t1 - t0
+cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 
 # Save results to file.
-save(list = "fit",file = "fit-lps-k=16.RData")
+save(list = c("fit","fit_merged","de","de_merged",
+     file = "fit-lps-k=16.RData"))<
 resaveRdaFiles("fit-lps-k=16.RData")
