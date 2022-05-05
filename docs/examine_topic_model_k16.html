@@ -292,7 +292,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-05-04
+<strong>Last updated:</strong> 2022-05-05
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -383,16 +383,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbolpstreea628c549dd875b2044621dba20c74a080b0e042atargetblanka628c54a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pcarbo/lps/tree/a628c549dd875b2044621dba20c74a080b0e042a" target="_blank">a628c54</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbolpstree189930464d3412a75aa96e00ccdf638c335ee93ctargetblank1899304a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pcarbo/lps/tree/189930464d3412a75aa96e00ccdf638c335ee93c" target="_blank">1899304</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompcarbolpstreea628c549dd875b2044621dba20c74a080b0e042atargetblanka628c54a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompcarbolpstree189930464d3412a75aa96e00ccdf638c335ee93ctargetblank1899304a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/pcarbo/lps/tree/a628c549dd875b2044621dba20c74a080b0e042a" target="_blank">a628c54</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/pcarbo/lps/tree/189930464d3412a75aa96e00ccdf638c335ee93c" target="_blank">1899304</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -400,6 +400,9 @@ Note that you need to be careful to ensure that all relevant files for the analy
 <pre><code>
 Ignored files:
     Ignored:    data/raw_read_counts.csv.gz
+
+Unstaged changes:
+    Modified:   analysis/temp.R
 
 </code></pre>
 <p>
@@ -438,6 +441,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/lps/blob/189930464d3412a75aa96e00ccdf638c335ee93c/analysis/examine_topic_model_k16.Rmd" target="_blank">1899304</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-05-05
+</td>
+<td>
+workflowr::wflow_publish(“examine_topic_model_k16.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/lps/b5a1eae580c2736afd4afd46ad5761fa68fb8bad/docs/examine_topic_model_k16.html" target="_blank">b5a1eae</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-05-04
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -508,22 +545,68 @@ p2 &lt;- plot_progress(fit,x = &quot;timing&quot;,y = &quot;res&quot;,colors = &
          linetype = &quot;none&quot;,size = &quot;none&quot;)
 plot_grid(p1,p2)</code></pre>
 <p><img src="figure/examine_topic_model_k16.Rmd/plot-progress-1.png" width="600" style="display: block; margin: auto;" /></p>
-<p>Visualize the structure identified in each of the tissues using a Structure plot:</p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-progress-1">
+Past versions of plot-progress-1.png
+</button>
+</p>
+<div id="fig-plot-progress-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/lps/blob/b5a1eae580c2736afd4afd46ad5761fa68fb8bad/docs/figure/examine_topic_model_k16.Rmd/plot-progress-1.png" target="_blank">b5a1eae</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-05-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Visualize the structure identified in each of the tissues using a Structure plot, in which the samples in each tissue are ordered by time in which the sample was taken:</p>
 <pre class="r"><code>set.seed(1)
+rows &lt;- order(samples$timepoint)
 topic_colors &lt;- c(&quot;darkblue&quot;,&quot;dodgerblue&quot;,&quot;darkorange&quot;,&quot;forestgreen&quot;,
                   &quot;limegreen&quot;,&quot;tomato&quot;,&quot;darkred&quot;,&quot;olivedrab&quot;,&quot;magenta&quot;,
                   &quot;darkmagenta&quot;,&quot;sienna&quot;,&quot;royalblue&quot;,&quot;lightskyblue&quot;,
                   &quot;gold&quot;,&quot;red&quot;,&quot;cyan&quot;)
-pca_embed_method &lt;- function (fit, ...)
-  drop(pca_from_topics(fit,dims = 1))
-p &lt;- structure_plot(fit,grouping = samples$tissue,gap = 3,
+p &lt;- structure_plot(fit,grouping = samples$tissue,gap = 5,
                     colors = topic_colors,
                     topics = c(15,3,4,5,6,7,8,9,10,11,12,13,2,14,1,16),
-                    embed_method = pca_embed_method) +
+                    loadings_order = rows) +
   theme(legend.key.height = unit(0.15,&quot;cm&quot;),
         legend.text = element_text(size = 7))
 print(p)</code></pre>
-<p><img src="figure/examine_topic_model_k16.Rmd/structure-plot-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/examine_topic_model_k16.Rmd/structure-plot-1-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>There is a single topic (topic 9, blue in the plot below) that is capturing changes in expression over time across many tissues. Two other topics (topics 1 and 6) show similar patterns, except these patterns are specific to two tissues (PBMC and LI).</p>
+<pre class="r"><code>set.seed(1)
+topic_colors &lt;- c(&quot;gold&quot;,&quot;darkorange&quot;,&quot;dodgerblue&quot;,&quot;white&quot;)
+fit2 &lt;- poisson2multinom(fit)
+fit2 &lt;- merge_topics(fit2,paste0(&quot;k&quot;,setdiff(1:16,c(1,6,9))))
+p &lt;- structure_plot(fit2,grouping = samples$tissue,gap = 5,
+                    colors = topic_colors,topics = c(4,1:3),
+                    loadings_order = rows)
+print(p)</code></pre>
+<p><img src="figure/examine_topic_model_k16.Rmd/structure-plot-2-1.png" width="960" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -559,7 +642,7 @@ print(p)</code></pre>
 # [25] htmltools_0.5.2    httpuv_1.5.2       Matrix_1.2-18      pkgconfig_2.0.3   
 # [29] invgamma_1.1       SparseM_1.78       purrr_0.3.4        scales_1.1.0      
 # [33] whisker_0.4        later_1.0.0        Rtsne_0.15         MatrixModels_0.4-1
-# [37] git2r_0.26.1       tibble_3.1.3       farver_2.0.1       generics_0.0.2    
+# [37] git2r_0.29.0       tibble_3.1.3       farver_2.0.1       generics_0.0.2    
 # [41] ellipsis_0.3.2     withr_2.5.0        ashr_2.2-54        pbapply_1.5-1     
 # [45] lazyeval_0.2.2     magrittr_2.0.1     crayon_1.4.1       mcmc_0.9-6        
 # [49] evaluate_0.14      R.methodsS3_1.8.1  fs_1.5.2           fansi_0.4.0       
