@@ -1,6 +1,9 @@
-# TO DO: Explain here what this script is for, and how to use it.
+# Fit a Poisson NMF model to the LPS RNA-seq data with k = 16 topics.
+# These were the steps taken to load R and
+# allocate computing resources for this analysis:
 #
-#  sinteractive -p broadwl -c 8 --mem=16G --time=72:00:00
+#   sinteractive -p broadwl -c 8 --mem=16G --time=72:00:00
+#   model load R/3.5.1
 #
 library(tools)
 library(data.table)
