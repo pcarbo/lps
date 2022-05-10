@@ -110,7 +110,7 @@ for (k in topics) {
   p[[k]] <- volcano_plot(de_merged,k = k,ymax = 500) +
     guides(fill = "none")
   volcano_plotly(de_merged,k = k,ymax = 500,
-                 file = paste("volcano_plot",k,sep = "_"))
+                 file = paste("volcano_plot_",k,".html",sep = ""))
 }
 do.call("plot_grid",c(p,list(ncol = 3,nrow = 5)))
 ```
