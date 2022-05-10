@@ -102,7 +102,7 @@ These volcano plots summarize the results of the DE analysis for
 topics capturing different tissues (and topic 9, which is capturing
 changes in expression at different time points):
 
-```{r volcano-plots-1, fig.height=18, fig.width=8}
+```{r volcano-plots-1, fig.height=18, fig.width=8, warning=FALSE}
 topics <- colnames(de_merged$z)
 p <- vector("list",13)
 names(p) <- topics
@@ -118,7 +118,7 @@ do.call("plot_grid",c(p,list(ncol = 3,nrow = 5)))
 These volcano plots summarize the results of the DE analysis for topics
 capturing expression patterns within tissues:
 
-```{r volcano-plots-2, fig.height=8, fig.width=8}
+```{r volcano-plots-2, fig.height=8, fig.width=8, warning=FALSE}
 topics <- c("k1","k2","k5","k6","k13","k14")
 p <- vector("list",6)
 names(p) <- topics
@@ -126,7 +126,7 @@ for (k in topics) {
   p[[k]] <- volcano_plot(de,k = k,ymax = 300) +
     guides(fill = "none")
   volcano_plotly(de,k = k,ymax = 300,
-                 file = paste("volcano_plot",k,sep = "_"))
+                 file = paste("volcano_plot_",k,".html",sep = ""))
 }
 do.call("plot_grid",c(p,list(ncol = 3,nrow = 2)))
 ```
