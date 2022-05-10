@@ -383,16 +383,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbolpstree567870b371b4d7ab3c4ff04dd3f5f1de7da4a93dtargetblank567870ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pcarbo/lps/tree/567870b371b4d7ab3c4ff04dd3f5f1de7da4a93d" target="_blank">567870b</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbolpstreea136de307e5fba51883930746a8284cbf514720etargetblanka136de3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pcarbo/lps/tree/a136de307e5fba51883930746a8284cbf514720e" target="_blank">a136de3</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompcarbolpstree567870b371b4d7ab3c4ff04dd3f5f1de7da4a93dtargetblank567870ba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompcarbolpstreea136de307e5fba51883930746a8284cbf514720etargetblanka136de3a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/pcarbo/lps/tree/567870b371b4d7ab3c4ff04dd3f5f1de7da4a93d" target="_blank">567870b</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/pcarbo/lps/tree/a136de307e5fba51883930746a8284cbf514720e" target="_blank">a136de3</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -401,28 +401,6 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    data/raw_read_counts.csv.gz
     Ignored:    output/
-
-Untracked files:
-    Untracked:  analysis/temp.R
-    Untracked:  analysis/volcano_plot_k1
-    Untracked:  analysis/volcano_plot_k1+k5
-    Untracked:  analysis/volcano_plot_k10
-    Untracked:  analysis/volcano_plot_k11
-    Untracked:  analysis/volcano_plot_k12
-    Untracked:  analysis/volcano_plot_k13
-    Untracked:  analysis/volcano_plot_k14
-    Untracked:  analysis/volcano_plot_k15
-    Untracked:  analysis/volcano_plot_k16
-    Untracked:  analysis/volcano_plot_k2
-    Untracked:  analysis/volcano_plot_k2+k13
-    Untracked:  analysis/volcano_plot_k3
-    Untracked:  analysis/volcano_plot_k4
-    Untracked:  analysis/volcano_plot_k5
-    Untracked:  analysis/volcano_plot_k6
-    Untracked:  analysis/volcano_plot_k6+k14
-    Untracked:  analysis/volcano_plot_k7
-    Untracked:  analysis/volcano_plot_k8
-    Untracked:  analysis/volcano_plot_k9
 
 </code></pre>
 <p>
@@ -461,6 +439,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/lps/blob/a136de307e5fba51883930746a8284cbf514720e/analysis/examine_topic_model_k16.Rmd" target="_blank">a136de3</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-05-10
+</td>
+<td>
+workflowr::wflow_publish(“examine_topic_model_k16.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/lps/bef8deb5d1cb8d18f6e8e0a70fdcadd78b1a49a0/docs/examine_topic_model_k16.html" target="_blank">bef8deb</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-05-10
+</td>
+<td>
+Added volcano plots.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -623,6 +635,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pcarbo/lps/blob/bef8deb5d1cb8d18f6e8e0a70fdcadd78b1a49a0/docs/figure/examine_topic_model_k16.Rmd/plot-progress-1.png" target="_blank">bef8deb</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-05-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pcarbo/lps/blob/b5a1eae580c2736afd4afd46ad5761fa68fb8bad/docs/figure/examine_topic_model_k16.Rmd/plot-progress-1.png" target="_blank">b5a1eae</a>
 </td>
 <td>
@@ -746,26 +769,45 @@ for (k in topics) {
                  file = paste(&quot;volcano_plot&quot;,k,sep = &quot;_&quot;))
 }
 # This version of bslib is designed to work with shiny version 1.6.0 or higher.
-# Warning: `arrange_()` was deprecated in dplyr 0.7.0.
-# Please use `arrange()` instead.
-# See vignette(&#39;programming&#39;) for more help
-# This warning is displayed once every 8 hours.
-# Call `lifecycle::last_warnings()` to see where this warning was generated.
-# Warning: Ignoring 290 observations
-# Warning: Ignoring 222 observations
-# Warning: Ignoring 234 observations
-# Warning: Ignoring 207 observations
-# Warning: Ignoring 107 observations
-# Warning: Ignoring 228 observations
-# Warning: Ignoring 267 observations
-# Warning: Ignoring 227 observations
-# Warning: Ignoring 244 observations
-# Warning: Ignoring 240 observations
-# Warning: Ignoring 187 observations
-# Warning: Ignoring 251 observations
-# Warning: Ignoring 246 observations
 do.call(&quot;plot_grid&quot;,c(p,list(ncol = 3,nrow = 5)))</code></pre>
 <p><img src="figure/examine_topic_model_k16.Rmd/volcano-plots-1-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-volcano-plots-1-1">
+Past versions of volcano-plots-1-1.png
+</button>
+</p>
+<div id="fig-volcano-plots-1-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/lps/blob/bef8deb5d1cb8d18f6e8e0a70fdcadd78b1a49a0/docs/figure/examine_topic_model_k16.Rmd/volcano-plots-1-1.png" target="_blank">bef8deb</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-05-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>These volcano plots summarize the results of the DE analysis for topics capturing expression patterns within tissues:</p>
 <pre class="r"><code>topics &lt;- c(&quot;k1&quot;,&quot;k2&quot;,&quot;k5&quot;,&quot;k6&quot;,&quot;k13&quot;,&quot;k14&quot;)
 p &lt;- vector(&quot;list&quot;,6)
@@ -774,16 +816,47 @@ for (k in topics) {
   p[[k]] &lt;- volcano_plot(de,k = k,ymax = 300) +
     guides(fill = &quot;none&quot;)
   volcano_plotly(de,k = k,ymax = 300,
-                 file = paste(&quot;volcano_plot&quot;,k,sep = &quot;_&quot;))
+                 file = paste(&quot;volcano_plot_&quot;,k,&quot;.html&quot;,sep = &quot;&quot;))
 }
-# Warning: Ignoring 113 observations
-# Warning: Ignoring 67 observations
-# Warning: Ignoring 114 observations
-# Warning: Ignoring 107 observations
-# Warning: Ignoring 115 observations
-# Warning: Ignoring 121 observations
 do.call(&quot;plot_grid&quot;,c(p,list(ncol = 3,nrow = 2)))</code></pre>
 <p><img src="figure/examine_topic_model_k16.Rmd/volcano-plots-2-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-volcano-plots-2-1">
+Past versions of volcano-plots-2-1.png
+</button>
+</p>
+<div id="fig-volcano-plots-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/lps/blob/bef8deb5d1cb8d18f6e8e0a70fdcadd78b1a49a0/docs/figure/examine_topic_model_k16.Rmd/volcano-plots-2-1.png" target="_blank">bef8deb</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-05-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
