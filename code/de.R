@@ -1,4 +1,4 @@
-# TO DO: Explain here what this function does, and how to use it.
+# Generate a data frame containing the results of a GoM DE analysis.
 compile_de_table <- function (de, topics = colnames(de$postmean)) {
   out <- NULL
   for (k in topics) {

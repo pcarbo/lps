@@ -1,4 +1,6 @@
-# TO DO: Explain here what this script does, and how to use it.
+# A short script to compile a CSV file containing the results of the
+# grade-of-membership differential expression (GoM DE) analysis based
+# on the topic model with k = 16 topics.
 library(fastTopics)
 source("../code/de.R")
 
@@ -6,10 +8,17 @@ source("../code/de.R")
 load("../output/fit-lps-k=16.RData")
 
 # Compile the DE results for all topics into a single table.
-dat <- compile_de_table(de_merged)
+dat <- rbind(compile_de_table(de_merged),
+             compile_de_table(de,c("k1","k2","k5","k6","k13","k14")))
 
 # Filter out genes with lfsr >= 0.01.
 dat <- subset(dat,lfsr < 0.01)
+
+# Reorder the genes by topic, then by LFC.
+topics <- c(paste0("k",1:16),c("k1+k5","k2+k13","k6+k14"))
+dat$topic <- factor(dat$topic,topics)
+rows <- with(dat,order(topic,-lfc))
+dat  <- dat[rows,]
 
 # Write the data frame to a CSV file.
 dat <-
