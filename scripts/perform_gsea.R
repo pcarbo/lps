@@ -41,15 +41,17 @@ i <- which(colSums(X) >= 10 & colSums(X) <= 400)
 X <- X[,i]
 
 # Perform a gene set enrichment analysis using susieR.
-k <- ncol(Y)
-gsea <- vector("list",k)
-names(gsea) <- colnames(Y)
+topics <- colnames(Y)
+gsea <- vector("list",ncol(Y))
+names(gsea) <- topics
 t0 <- proc.time()
-for (i in 1:k)
+for (i in topics) {
+  cat("topic",i,"\n")
   gsea[[i]] <- susie(X,Y[,i],L = 10,intercept = TRUE,standardize = FALSE,
                      estimate_residual_variance = TRUE,refine = FALSE,
                      compute_univariate_zscore = FALSE,verbose = TRUE,
                      min_abs_corr = 0)
+}
 t1 <- proc.time()
 timing <- t1 - t0
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
