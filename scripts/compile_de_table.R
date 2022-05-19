@@ -27,4 +27,4 @@ dat <-
             lfc = format(round(lfc,digits = 3),trim = TRUE,scientific = FALSE),
             z = format(round(z,digits = 3),trim = TRUE,scientific = FALSE),
             lfsr = format(lfsr,digits = 3,trim = TRUE,scientific = TRUE))
-write.csv(dat,"de_table.csv",quote = FALSE,row.names = FALSE)
+write.csv(dat,"de_lps_k16.csv",quote = FALSE,row.names = FALSE)
