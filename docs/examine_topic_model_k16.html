@@ -274,7 +274,7 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -283,7 +283,7 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -292,10 +292,10 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-05-10
+<strong>Last updated:</strong> 2022-05-19
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 2
 </p>
 <p>
 <strong>Knit directory:</strong> <code>lps/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -307,28 +307,238 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <hr>
 </div>
 <div id="checks" class="tab-pane fade">
-<div id="workflowr-checks" class="panel-group">
+<div class="panel-group" id="workflowr-checks">
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongobjectspresent"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>Environment:</strong> objects present </a>
 </p>
 </div>
-<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div id="strongEnvironmentstrongobjectspresent" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+
+<p>
+The global environment had objects present when the code in the R Markdown file was run. These objects can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment. Use <code>wflow_publish</code> or <code>wflow_build</code> to ensure that the code is always run in an empty environment.
+</p>
+<p>
+The following objects were defined in the global environment when these results were created:
+</p>
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th style="text-align:left;">
+Name
+</th>
+<th style="text-align:left;">
+Class
+</th>
+<th style="text-align:left;">
+Size
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+counts
+</td>
+<td style="text-align:left;">
+matrix
+</td>
+<td style="text-align:left;">
+40.9 Mb
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dat
+</td>
+<td style="text-align:left;">
+list
+</td>
+<td style="text-align:left;">
+77.6 Mb
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+de
+</td>
+<td style="text-align:left;">
+topic_model_de_analysis;list
+</td>
+<td style="text-align:left;">
+48.7 Mb
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+de_merged
+</td>
+<td style="text-align:left;">
+topic_model_de_analysis;list
+</td>
+<td style="text-align:left;">
+42.9 Mb
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fit
+</td>
+<td style="text-align:left;">
+poisson_nmf_fit;list
+</td>
+<td style="text-align:left;">
+15.8 Mb
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fit_merged
+</td>
+<td style="text-align:left;">
+multinom_topic_model_fit;list
+</td>
+<td style="text-align:left;">
+13.9 Mb
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fit2
+</td>
+<td style="text-align:left;">
+multinom_topic_model_fit;list
+</td>
+<td style="text-align:left;">
+8 Mb
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+j
+</td>
+<td style="text-align:left;">
+integer
+</td>
+<td style="text-align:left;">
+1.9 Mb
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+k
+</td>
+<td style="text-align:left;">
+character
+</td>
+<td style="text-align:left;">
+112 bytes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+p
+</td>
+<td style="text-align:left;">
+gg;ggplot
+</td>
+<td style="text-align:left;">
+100.6 Kb
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+p1
+</td>
+<td style="text-align:left;">
+gg;ggplot
+</td>
+<td style="text-align:left;">
+111.6 Kb
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+p2
+</td>
+<td style="text-align:left;">
+gg;ggplot
+</td>
+<td style="text-align:left;">
+111.6 Kb
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+read_lps_data
+</td>
+<td style="text-align:left;">
+function
+</td>
+<td style="text-align:left;">
+67.7 Kb
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rows
+</td>
+<td style="text-align:left;">
+integer
+</td>
+<td style="text-align:left;">
+1.5 Kb
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+samples
+</td>
+<td style="text-align:left;">
+data.frame
+</td>
+<td style="text-align:left;">
+9.4 Kb
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+topic_colors
+</td>
+<td style="text-align:left;">
+character
+</td>
+<td style="text-align:left;">
+320 bytes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+topics
+</td>
+<td style="text-align:left;">
+character
+</td>
+<td style="text-align:left;">
+432 bytes
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -383,16 +593,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbolpstreeba08036d7ca9e6454ef2e85c2044153b7764abddtargetblankba08036a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pcarbo/lps/tree/ba08036d7ca9e6454ef2e85c2044153b7764abdd" target="_blank">ba08036</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbolpstree219b2606a0ae97e902a945db9e4d258b4cb3561btargetblank219b260a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pcarbo/lps/tree/219b2606a0ae97e902a945db9e4d258b4cb3561b" target="_blank">219b260</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompcarbolpstreeba08036d7ca9e6454ef2e85c2044153b7764abddtargetblankba08036a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompcarbolpstree219b2606a0ae97e902a945db9e4d258b4cb3561btargetblank219b260a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/pcarbo/lps/tree/ba08036d7ca9e6454ef2e85c2044153b7764abdd" target="_blank">ba08036</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/pcarbo/lps/tree/219b2606a0ae97e902a945db9e4d258b4cb3561b" target="_blank">219b260</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -400,7 +610,31 @@ Note that you need to be careful to ensure that all relevant files for the analy
 <pre><code>
 Ignored files:
     Ignored:    data/raw_read_counts.csv.gz
-    Ignored:    output/
+    Ignored:    output/fit-lps-k=16.RData
+
+Untracked files:
+    Untracked:  analysis/volcano_plot_k1+k5.html
+    Untracked:  analysis/volcano_plot_k1.html
+    Untracked:  analysis/volcano_plot_k10.html
+    Untracked:  analysis/volcano_plot_k11.html
+    Untracked:  analysis/volcano_plot_k12.html
+    Untracked:  analysis/volcano_plot_k13.html
+    Untracked:  analysis/volcano_plot_k14.html
+    Untracked:  analysis/volcano_plot_k15.html
+    Untracked:  analysis/volcano_plot_k16.html
+    Untracked:  analysis/volcano_plot_k2+k13.html
+    Untracked:  analysis/volcano_plot_k2.html
+    Untracked:  analysis/volcano_plot_k3.html
+    Untracked:  analysis/volcano_plot_k4.html
+    Untracked:  analysis/volcano_plot_k5.html
+    Untracked:  analysis/volcano_plot_k6+k14.html
+    Untracked:  analysis/volcano_plot_k6.html
+    Untracked:  analysis/volcano_plot_k7.html
+    Untracked:  analysis/volcano_plot_k8.html
+    Untracked:  analysis/volcano_plot_k9.html
+
+Unstaged changes:
+    Modified:   analysis/examine_topic_model_k16.Rmd
 
 </code></pre>
 <p>
@@ -439,6 +673,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/lps/2e949c096784988c16591f2a384f9cdc22674756/docs/examine_topic_model_k16.html" target="_blank">2e949c0</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-05-10
+</td>
+<td>
+Added links to volcano plots.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -784,6 +1035,7 @@ Peter Carbonetto
 topic_colors &lt;- c(&quot;gold&quot;,&quot;darkorange&quot;,&quot;dodgerblue&quot;,&quot;white&quot;)
 fit2 &lt;- poisson2multinom(fit)
 fit2 &lt;- merge_topics(fit2,paste0(&quot;k&quot;,setdiff(1:16,c(1,6,9))))
+colnames(fit2$L) &lt;- c(&quot;k1&quot;,&quot;k6&quot;,&quot;k9&quot;,&quot;other&quot;)
 p &lt;- structure_plot(fit2,grouping = samples$tissue,gap = 5,
                     colors = topic_colors,topics = c(4,1:3),
                     loadings_order = rows)
@@ -836,7 +1088,6 @@ for (k in topics) {
   volcano_plotly(de_merged,k = k,ymax = 500,
                  file = paste(&quot;volcano_plot_&quot;,k,&quot;.html&quot;,sep = &quot;&quot;))
 }
-# This version of bslib is designed to work with shiny version 1.6.0 or higher.
 do.call(&quot;plot_grid&quot;,c(p,list(ncol = 3,nrow = 5)))</code></pre>
 <p><img src="figure/examine_topic_model_k16.Rmd/volcano-plots-1-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
@@ -861,6 +1112,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/lps/blob/2e949c096784988c16591f2a384f9cdc22674756/docs/figure/examine_topic_model_k16.Rmd/volcano-plots-1-1.png" target="_blank">2e949c0</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-05-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pcarbo/lps/blob/29047dc20bbd4c071b0b95c1d2909e51a05e54d2/docs/figure/examine_topic_model_k16.Rmd/volcano-plots-1-1.png" target="_blank">29047dc</a>
@@ -934,6 +1196,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pcarbo/lps/blob/2e949c096784988c16591f2a384f9cdc22674756/docs/figure/examine_topic_model_k16.Rmd/volcano-plots-2-1.png" target="_blank">2e949c0</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-05-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pcarbo/lps/blob/29047dc20bbd4c071b0b95c1d2909e51a05e54d2/docs/figure/examine_topic_model_k16.Rmd/volcano-plots-2-1.png" target="_blank">29047dc</a>
 </td>
 <td>
@@ -993,7 +1266,7 @@ Peter Carbonetto
 # [1] stats     graphics  grDevices utils     datasets  methods   base     
 # 
 # other attached packages:
-# [1] cowplot_1.0.0      ggplot2_3.3.5      fastTopics_0.6-117 data.table_1.12.8 
+# [1] cowplot_1.0.0      ggplot2_3.3.5      fastTopics_0.6-131 data.table_1.12.8 
 # 
 # loaded via a namespace (and not attached):
 #  [1] mcmc_0.9-6         fs_1.5.2           progress_1.2.2     httr_1.4.2        
@@ -1005,20 +1278,21 @@ Peter Carbonetto
 # [25] sass_0.4.0         scales_1.1.0       SQUAREM_2017.10-1  quadprog_1.5-8    
 # [29] pbapply_1.5-1      mixsqp_0.3-46      stringr_1.4.0      digest_0.6.23     
 # [33] rmarkdown_2.11     R.utils_2.11.0     MCMCpack_1.4-5     pkgconfig_2.0.3   
-# [37] htmltools_0.5.2    fastmap_1.1.0      invgamma_1.1       highr_0.8         
-# [41] htmlwidgets_1.5.1  rlang_0.4.11       shiny_1.4.0        jquerylib_0.1.4   
-# [45] generics_0.0.2     farver_2.0.1       jsonlite_1.7.2     crosstalk_1.0.0   
-# [49] dplyr_1.0.7        R.oo_1.24.0        magrittr_2.0.1     Matrix_1.2-18     
-# [53] Rcpp_1.0.7         munsell_0.5.0      fansi_0.4.0        lifecycle_1.0.0   
-# [57] R.methodsS3_1.8.1  stringi_1.4.3      whisker_0.4        yaml_2.2.0        
-# [61] MASS_7.3-51.4      Rtsne_0.15         grid_3.6.2         parallel_3.6.2    
-# [65] promises_1.1.0     ggrepel_0.9.1      crayon_1.4.1       lattice_0.20-38   
-# [69] hms_1.1.0          knitr_1.37         pillar_1.6.2       glue_1.4.2        
-# [73] evaluate_0.14      RcppParallel_5.1.5 vctrs_0.3.8        httpuv_1.5.2      
-# [77] MatrixModels_0.4-1 gtable_0.3.0       purrr_0.3.4        tidyr_1.1.3       
-# [81] assertthat_0.2.1   ashr_2.2-54        xfun_0.29          mime_0.8          
-# [85] xtable_1.8-4       coda_0.19-3        later_1.0.0        viridisLite_0.3.0 
-# [89] truncnorm_1.0-8    tibble_3.1.3       workflowr_1.7.0    ellipsis_0.3.2</code></pre>
+# [37] htmltools_0.5.2    highr_0.8          fastmap_1.1.0      invgamma_1.1      
+# [41] htmlwidgets_1.5.1  rlang_0.4.11       rstudioapi_0.13    shiny_1.4.0       
+# [45] jquerylib_0.1.4    generics_0.0.2     farver_2.0.1       jsonlite_1.7.2    
+# [49] crosstalk_1.0.0    dplyr_1.0.7        R.oo_1.24.0        magrittr_2.0.1    
+# [53] Matrix_1.2-18      Rcpp_1.0.7         munsell_0.5.0      fansi_0.4.0       
+# [57] lifecycle_1.0.0    R.methodsS3_1.8.1  stringi_1.4.3      whisker_0.4       
+# [61] yaml_2.2.0         MASS_7.3-51.4      Rtsne_0.15         grid_3.6.2        
+# [65] parallel_3.6.2     promises_1.1.0     ggrepel_0.9.1      crayon_1.4.1      
+# [69] lattice_0.20-38    hms_1.1.0          knitr_1.37         pillar_1.6.2      
+# [73] glue_1.4.2         evaluate_0.14      RcppParallel_5.1.5 vctrs_0.3.8       
+# [77] httpuv_1.5.2       MatrixModels_0.4-1 gtable_0.3.0       purrr_0.3.4       
+# [81] tidyr_1.1.3        assertthat_0.2.1   ashr_2.2-54        xfun_0.29         
+# [85] mime_0.8           xtable_1.8-4       coda_0.19-3        later_1.0.0       
+# [89] viridisLite_0.3.0  truncnorm_1.0-8    tibble_3.1.3       workflowr_1.7.0   
+# [93] ellipsis_0.3.2</code></pre>
 </div>
 
 
