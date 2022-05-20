@@ -5,6 +5,8 @@ library(Matrix)
 library(tools)
 library(susieR)
 library(pathways)
+
+# Initialize the sequence of pseudorandom numbers.
 set.seed(1)
 
 # Load the gene sets.
@@ -47,15 +49,16 @@ names(gsea) <- topics
 t0 <- proc.time()
 for (i in topics) {
   cat("topic",i,"\n")
-  gsea[[i]] <- susie(X,Y[,i],L = 10,intercept = TRUE,standardize = FALSE,
-                     estimate_residual_variance = TRUE,refine = FALSE,
-                     compute_univariate_zscore = FALSE,verbose = TRUE,
-                     min_abs_corr = 0)
+  out <- susie(X,Y[,i],L = 10,intercept = TRUE,standardize = FALSE,
+               estimate_residual_variance = TRUE,refine = FALSE,
+               compute_univariate_zscore = FALSE,verbose = TRUE,
+               min_abs_corr = 0)
+  gsea[[i]] <- out[c("KL","lbf","sigma2","V","elbo","sets","pip","alpha","mu")]
 }
 t1 <- proc.time()
 timing <- t1 - t0
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 
 # Save the results to file.
-save(list = "gsea",file = "gsea-lps-k=16.RData")
+save(list = c("X","Y","gsea"),file = "gsea-lps-k=16.RData")
 resaveRdaFiles("gsea-lps-k=16.RData")
