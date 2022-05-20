@@ -26,5 +26,12 @@ for (i in topics) {
 }
 
 # Write the data frame to a CSV file.
+dat <-
+  transform(dat,
+            lbf = format(round(lbf,digits = 3),trim = TRUE,scientific = FALSE),
+            pip = format(round(pip,digits = 3),trim = TRUE,scientific = FALSE),
+            coef = format(round(coef,digits = 3),trim = TRUE,scientific=FALSE))
+cat("Check for double quotes in description_brief field:",
+    any(grepl("\"",dat$description_brief,fixed = TRUE)),"\n")
 write.csv(dat,"gsea_lps_k16.csv",quote = TRUE,row.names = FALSE)
 

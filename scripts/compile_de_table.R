@@ -23,7 +23,6 @@ dat  <- dat[rows,]
 # Write the data frame to a CSV file.
 dat <-
   transform(dat,
-            topic = topic,
             lfc = format(round(lfc,digits = 3),trim = TRUE,scientific = FALSE),
             z = format(round(z,digits = 3),trim = TRUE,scientific = FALSE),
             lfsr = format(lfsr,digits = 3,trim = TRUE,scientific = TRUE))
