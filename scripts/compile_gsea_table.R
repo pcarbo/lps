@@ -20,7 +20,7 @@ gene_set_info <- gene_set_info[colnames(X),]
 dat <- NULL
 topics <- names(gsea)
 for (i in topics) {
-  x   <- compile_gsea_table(gsea[[i]],gene_set_info)
+  x   <- compile_gsea_table(gsea[[i]],X,Y[,i],gene_set_info)
   x   <- cbind(data.frame(topic = i),x)
   dat <- rbind(dat,x)
 }

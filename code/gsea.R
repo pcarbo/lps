@@ -1,5 +1,6 @@
-# TO DO: Explain here what this function does, and how to use it.
-compile_gsea_table <- function (s, gene_set_info) {
+# Generate a data frame summarizing the results of the susie gene set
+# enrichment analysis.
+compile_gsea_table <- function (s, X, y, gene_set_info, ntop = 10) {
 
   # Initialize the output.
   out <- NULL
@@ -16,7 +17,8 @@ compile_gsea_table <- function (s, gene_set_info) {
   # Repeat for each CS.
   for (i in names(cs)) {
       
-    # Get the variables (gene sets) included in the CS.
+    # Get information about the variables (i.e., the gene sets)
+    # included in the CS.
     j <- cs[[i]]
     n <- length(j)
     x <- data.frame(CS = rep(i,n),
@@ -26,6 +28,20 @@ compile_gsea_table <- function (s, gene_set_info) {
                data.frame(pip  = s$alpha[i,j],
                           coef = s$mu[i,j]),
                gene_set_info[j,])
+
+    # For each gene set, extract the "top genes" (genes in the gene
+    # set with the Y's that are the largest in magnitude).
+    top_genes_all <- vector("character",n)
+    for (k in 1:n) {
+      genes <- which(X[,j[k]] > 0)
+      genes <- genes[order(abs(y[genes]),decreasing = TRUE)]
+      genes <- genes[seq(1,ntop)]
+      top_genes <- paste0(names(genes)," (",round(y[genes],digits = 3),")")
+      top_genes <- paste(top_genes,collapse = " ")
+      top_genes_all[k] <- top_genes
+    }
+    x <- cbind(x,data.frame(top_genes = top_genes_all,
+                            stringsAsFactors = FALSE))
     out <- rbind(out,x)
   }
 
