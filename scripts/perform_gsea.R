@@ -13,7 +13,7 @@ set.seed(1)
 data(gene_sets_mouse)
 X <- gene_sets_mouse$gene_sets
 
-# Load the results of the topic modeling analysis.
+# Load the results of the GoM DE analysis.
 load("../output/fit-lps-k=16.RData")
 topics <- c(paste0("k",1:16),c("k1+k5","k2+k13","k6+k14"))
 Y <- cbind(de_merged$postmean,
