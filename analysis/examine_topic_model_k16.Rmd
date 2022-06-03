@@ -82,6 +82,10 @@ p <- structure_plot(fit,grouping = samples$tissue,gap = 5,
 print(p)
 ```
 
+```{r structure-plot-1-ggsave, echo=FALSE}
+ggsave("structure_plot_k16.pdf",p,height = 2,width = 8.5)
+```
+
 There is a single topic (topic 9, blue in the plot below) that is
 capturing changes in expression over time across many tissues. Two
 other topics (topics 1 and 6) show similar patterns, except these
