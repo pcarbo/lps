@@ -22,9 +22,13 @@ Y <- Y[,topics]
            
 # Remove gene sets in several MSigDB collections that clearly aren't
 # relevant.
-i <- which(!is.element(gene_sets_mouse$gene_set_info$database,
-                       c("MSigDB-ARCHIVED","MSigDB-C1","MSigDB-C3",
-                         "MSigDB-C4","MSigDB-C6")))
+# i <- which(!is.element(gene_sets_mouse$gene_set_info$database,
+#                        c("MSigDB-ARCHIVED","MSigDB-C1","MSigDB-C3",
+#                          "MSigDB-C4","MSigDB-C6")))
+i <- which(with(gene_sets_mouse$gene_set_info,
+                grepl("CP",sub_category_code,fixed = TRUE) |
+                grepl("GO",sub_category_code,fixed = TRUE)))
+
 X <- X[,i]
 
 # Align the gene-set data with the gene-wise statistics.
@@ -60,5 +64,5 @@ timing <- t1 - t0
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 
 # Save the results to file.
-save(list = c("X","Y","gsea"),file = "gsea-lps-k=16.RData")
-resaveRdaFiles("gsea-lps-k=16.RData")
+save(list = c("X","Y","gsea"),file = "gsea-lps-k=16-CP+GO-only.RData")
+resaveRdaFiles("gsea-lps-k=16-CP+GO-only.RData")

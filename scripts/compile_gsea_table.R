@@ -8,7 +8,7 @@ source("../code/gsea.R")
 data(gene_sets_mouse)
 
 # Load the results of the gene set enrichment analysis.
-load("../output/gsea-lps-k=16.RData")
+load("../output/gsea-lps-k=16-CP+GO-only.RData")
 
 # Extract the info for the gene sets included in the gene set
 # enrichment analysis.
@@ -33,5 +33,5 @@ dat <-
             coef = format(round(coef,digits = 3),trim = TRUE,scientific=FALSE))
 cat("Check for double quotes in description_brief field:",
     any(grepl("\"",dat$description_brief,fixed = TRUE)),"\n")
-write.csv(dat,"gsea_lps_k16.csv",quote = TRUE,row.names = FALSE)
+write.csv(dat,"gsea_lps_k16_CP+GO_only.csv",quote = TRUE,row.names = FALSE)
 

@@ -1,3 +1,4 @@
 data/raw_read_counts.csv.gz
 output/fit-lps-k=16.RData
 output/gsea-lps-k=16.RData
+output/gsea-lps-k=16-CP+GO-only.RData
