@@ -86,6 +86,8 @@ print(p)
 ggsave("structure_plot_k16.pdf",p,height = 2,width = 8.5)
 ```
 
+See [here](structure_plots_topic_model_k16.html) for more Structure plots.
+
 There is a single topic (topic 9, blue in the plot below) that is
 capturing changes in expression over time across many tissues. Two
 other topics (topics 1 and 6) show similar patterns, except these
