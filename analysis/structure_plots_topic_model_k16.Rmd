@@ -1,5 +1,5 @@
 ---
-title: "Examine topic modeling results with k = 16 topics"
+title: "Structure plots from topic model with k = 16 topics"
 author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
