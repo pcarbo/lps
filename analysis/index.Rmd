@@ -9,4 +9,6 @@ Follow the links below to browse the results of the analyses.
 
 + [Topic modeling results with k = 16 topics](examine_topic_model_k16.html)
 
++ [Structure plots from topic model with k = 16 topics](structure_plots_topic_model_k16.html)
+
 + [Check in detail the k = 16 topics for iLN](check_iln_k16.html)

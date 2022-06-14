@@ -1,0 +1,158 @@
+---
+title: "Examine topic modeling results with k = 16 topics"
+author: Peter Carbonetto
+output: workflowr::wflow_html
+---
+
+*Add text here giving an overview of this analysis.*
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center",dpi = 120)
+```
+
+Load the packages used in the analysis.
+
+```{r load-pkgs, message=FALSE}
+library(data.table)
+library(fastTopics)
+library(ggplot2)
+library(cowplot)
+source("../code/lps_data.R")
+```
+
+Initialize the sequence of pseudorandom numbers.
+
+```{r set-seed}
+set.seed(1)
+```
+
+Load the count data.
+
+```{r load-data}
+dat <- read_lps_data("../data/raw_read_counts.csv.gz")
+samples <- dat$samples
+counts  <- dat$counts
+```
+
+Remove genes with very low (or no) expression.
+
+```{r prepare-data}
+j <- which(colSums(counts) > 20)
+counts <- counts[,j]
+```
+
+Load the results of the topic modeling analysis.
+
+```{r load-results}
+load("../output/fit-lps-k=16.RData")
+```
+
+Plot the improvement in the solution over time.
+
+```{r plot-progress, fig.height=2.25, fig.width=5}
+p1 <- plot_progress(fit,x = "timing",y = "loglik",colors = "black",
+                    add.point.every = 10,e = 1e-4) +
+  guides(color = "none",fill = "none",shape = "none",
+         linetype = "none",size = "none")
+p2 <- plot_progress(fit,x = "timing",y = "res",colors = "black",
+                    add.point.every = 10,e = 1e-4) +
+  guides(color = "none",fill = "none",shape = "none",
+         linetype = "none",size = "none")
+plot_grid(p1,p2)
+```
+
+Visualize the structure identified in each of the tissues using a
+Structure plot, in which the samples in each tissue are ordered by
+time in which the sample was taken:
+
+```{r structure-plot-1, fig.height=1.75, fig.width=8}
+set.seed(1)
+rows <- order(samples$timepoint)
+topic_colors <- c("darkblue","dodgerblue","darkorange","forestgreen",
+                  "limegreen","tomato","darkred","olivedrab","magenta",
+                  "darkmagenta","sienna","royalblue","lightskyblue",
+                  "gold","red","cyan")
+p <- structure_plot(fit,grouping = samples$tissue,gap = 5,
+                    colors = topic_colors,
+                    topics = c(15,3,4,5,6,7,8,9,10,11,12,13,2,14,1,16),
+                    loadings_order = rows) +
+  theme(legend.key.height = unit(0.15,"cm"),
+        legend.text = element_text(size = 7))
+print(p)
+```
+
+```{r structure-plot-1-ggsave, echo=FALSE}
+ggsave("structure_plot_k16.pdf",p,height = 2,width = 8.5)
+```
+
+There is a single topic (topic 9, blue in the plot below) that is
+capturing changes in expression over time across many tissues. Two
+other topics (topics 1 and 6) show similar patterns, except these
+patterns are specific to two tissues (PBMC and LI).
+
+```{r structure-plot-2, fig.height=1.75, fig.width=8}
+set.seed(1)
+topic_colors <- c("gold","darkorange","dodgerblue","white")
+fit2 <- poisson2multinom(fit)
+fit2 <- merge_topics(fit2,paste0("k",setdiff(1:16,c(1,6,9))))
+colnames(fit2$L) <- c("k1","k6","k9","other")
+p <- structure_plot(fit2,grouping = samples$tissue,gap = 5,
+                    colors = topic_colors,topics = c(4,1:3),
+                    loadings_order = rows)
+print(p)
+```
+
+These volcano plots summarize the results of the DE analysis for
+topics capturing different tissues (and topic 9, which is capturing
+changes in expression at different time points):
+
+```{r volcano-plots-1, fig.height=18, fig.width=8, warning=FALSE, message=FALSE}
+topics <- colnames(de_merged$z)
+p <- vector("list",13)
+names(p) <- topics
+for (k in topics) {
+  p[[k]] <- volcano_plot(de_merged,k = k,ymax = 500) +
+    guides(fill = "none")
+  volcano_plotly(de_merged,k = k,ymax = 500,
+                 file = paste("volcano_plot_",k,".html",sep = ""))
+}
+do.call("plot_grid",c(p,list(ncol = 3,nrow = 5)))
+```
+
+These volcano plots summarize the results of the DE analysis for topics
+capturing expression patterns within tissues:
+
+```{r volcano-plots-2, fig.height=6, fig.width=8, warning=FALSE, message=FALSE}
+topics <- c("k1","k2","k5","k6","k13","k14")
+p <- vector("list",6)
+names(p) <- topics
+for (k in topics) {
+  p[[k]] <- volcano_plot(de,k = k,ymax = 300) +
+    guides(fill = "none")
+  volcano_plotly(de,k = k,ymax = 300,
+                 file = paste("volcano_plot_",k,".html",sep = ""))
+}
+do.call("plot_grid",c(p,list(ncol = 3,nrow = 2)))
+```
+
+These results may also be browsed interactively:
+[k1](volcano_plots/volcano_plot_k1.html), 
+[k2](volcano_plots/volcano_plot_k2.html), 
+[k3](volcano_plots/volcano_plot_k3.html), 
+[k4](volcano_plots/volcano_plot_k4.html), 
+[k5](volcano_plots/volcano_plot_k5.html), 
+[k6](volcano_plots/volcano_plot_k6.html), 
+[k7](volcano_plots/volcano_plot_k7.html), 
+[k8](volcano_plots/volcano_plot_k8.html), 
+[k9](volcano_plots/volcano_plot_k9.html), 
+[k10](volcano_plots/volcano_plot_k10.html), 
+[k11](volcano_plots/volcano_plot_k11.html), 
+[k12](volcano_plots/volcano_plot_k12.html), 
+[k13](volcano_plots/volcano_plot_k13.html), 
+[k14](volcano_plots/volcano_plot_k14.html), 
+[k15](volcano_plots/volcano_plot_k15.html), 
+[k16](volcano_plots/volcano_plot_k16.html), 
+[k1+k5](volcano_plots/volcano_plot_k1+k5.html), 
+[k2+k13](volcano_plots/volcano_plot_k2+k13.html), 
+[k6+k14](volcano_plots/volcano_plot_k6+k14.html).
