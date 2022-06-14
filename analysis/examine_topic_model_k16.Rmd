@@ -71,7 +71,7 @@ set.seed(1)
 rows <- order(samples$timepoint)
 topic_colors <- c("darkblue","dodgerblue","darkorange","forestgreen",
                   "limegreen","tomato","darkred","olivedrab","magenta",
-				  "darkmagenta","sienna","royalblue","lightskyblue",
+		  "darkmagenta","sienna","royalblue","lightskyblue",
                   "gold","red","cyan")
 p <- structure_plot(fit,grouping = samples$tissue,gap = 5,
                     colors = topic_colors,
