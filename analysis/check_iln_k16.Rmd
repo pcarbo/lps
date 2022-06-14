@@ -1,0 +1,54 @@
+---
+title: "Check in detail the k = 16 topics for iLN"
+author: Peter Carbonetto
+output: workflowr::wflow_html
+---
+
+Here we examine in detail the topic proportions of the iLN samples.
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center",dpi = 120)
+```
+
+Load the packages used in the analysis.
+
+```{r load-pkgs, message=FALSE}
+library(data.table)
+library(fastTopics)
+source("../code/lps_data.R")
+```
+
+Load the count data.
+
+```{r load-data}
+dat <- read_lps_data("../data/raw_read_counts.csv.gz")
+samples <- dat$samples
+counts  <- dat$counts
+```
+
+Load the results of the topic modeling analysis.
+
+```{r load-results-1}
+load("../output/fit-lps-k=16.RData")
+fit <- poisson2multinom(fit)
+```
+
+Extract the results for the iLN samples.
+
+```{r load-results-2}
+i <- which(samples$tissue == "iLN")
+fit <- select_loadings(fit,loadings = i)
+```
+
+Check in detail the topic proportions of the iLN samples. The last
+one (iLN_d2_20) is an outlier, and indeed this shows in the
+estimated topics.
+
+```{r structure-plot, fig.height=2, fig.width=6}
+topic_colors <- c("darkblue","dodgerblue","darkorange","forestgreen",
+                  "limegreen","tomato","darkred","olivedrab","magenta",
+		  "darkmagenta","sienna","royalblue","lightskyblue",
+                  "gold","red","cyan")
+structure_plot(fit,loadings_order = 1:28,colors = topic_colors)
+```
