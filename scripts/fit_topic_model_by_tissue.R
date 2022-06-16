@@ -47,3 +47,8 @@ for (tissue in tissues) {
                          verbose = "none")
   fits_k3[[tissue]] <- fit
 }
+
+# Save results to file.
+save(list = c("fits_k2","fits_k3"),
+     file = "fits-lps-bytissue.RData")
+resaveRdaFiles("fits-lps-bytissue.RData")
