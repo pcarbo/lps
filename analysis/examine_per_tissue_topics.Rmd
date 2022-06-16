@@ -1,0 +1,70 @@
+---
+title: "Examine topic models fit separately to each tissue"
+author: Peter Carbonetto
+output: workflowr::wflow_html
+---
+
+Here we visualize the topic models, with $K = 2$ and $K = 3$ topics,
+fit separately to each of the tissues.
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center",dpi = 120)
+```
+
+Load the packages used in the analysis.
+
+```{r load-pkgs, message=FALSE}
+library(data.table)
+library(fastTopics)
+library(ggplot2)
+library(cowplot)
+source("../code/lps_data.R")
+```
+
+Initialize the sequence of pseudorandom numbers.
+
+```{r set-seed}
+set.seed(1)
+```
+
+Load the count data.
+
+```{r load-data}
+dat <- read_lps_data("../data/raw_read_counts.csv.gz")
+samples <- dat$samples
+counts  <- dat$counts
+```
+
+Load the results of the topic modeling analyses.
+
+```{r load-results}
+load("../output/fits-lps-bytissue.RData")
+```
+
+Each Structure plot shows the samples in each tissue, arranged along
+the x-axis by time.
+
+```{r structure-plots, fig.height=14, fig.width=6}
+topic_colors <- c("darkblue","darkorange","dodgerblue")
+tissues <- levels(samples$tissue)
+n       <- length(tissues)
+plots   <- vector("list",2*n)
+i <- 0
+for (t in tissues) {
+  rows <- order(subset(samples,tissue == t)$timepoint)
+  i <- i + 1
+  plots[[i]] <- structure_plot(fits_k2[[t]],loadings_order = rows,
+                               colors = topic_colors) +
+    guides(color = "none",fill = "none") +
+    labs(y = "topic prop.",title = paste(t,"k = 2",sep = ", ")) +
+	theme(plot.title = element_text(face = "plain",size = 10))
+  i <- i + 1
+  plots[[i]] <- structure_plot(fits_k3[[t]],loadings_order = rows,
+                               colors = topic_colors) +
+    guides(color = "none",fill = "none") +
+    labs(y = "topic prop.",title = paste(t,"k = 3",sep = ", ")) +
+	theme(plot.title = element_text(face = "plain",size = 10))
+}
+do.call(plot_grid,c(plots,list(nrow = 13,ncol = 2)))
+```
