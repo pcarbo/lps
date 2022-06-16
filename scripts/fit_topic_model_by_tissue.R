@@ -1,4 +1,5 @@
-# TO DO: Explain here what this script is for, and how to use it.
+# Fit a rank-2 and rank-3 Poisson NMF model to the LPS RNA-seq data,
+# separately for each tissue.
 library(tools)
 library(data.table)
 library(fastTopics)
