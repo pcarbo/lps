@@ -4,8 +4,6 @@ author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
-*Add text here giving an overview of this analysis.*
-
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
                       fig.align = "center",dpi = 120)
@@ -33,6 +31,9 @@ Load the count data.
 dat <- read_lps_data("../data/raw_read_counts.csv.gz")
 samples <- dat$samples
 counts  <- dat$counts
+table(samples$tissue)
+table(samples$timepoint)
+table(samples$mouse)
 ```
 
 Remove genes with very low (or no) expression.
@@ -84,6 +85,8 @@ print(p)
 
 ```{r structure-plot-1-ggsave, echo=FALSE}
 ggsave("structure_plot_k16.pdf",p,height = 2,width = 8.5)
+ggsave("structure_plot_k16.png",p,height = 1.5,width = 8,
+       dpi = 300,bg = "white")
 ```
 
 See [here](structure_plots_topic_model_k16.html) for more Structure plots.
