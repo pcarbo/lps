@@ -14,6 +14,7 @@
 
 <title>Examine topic modeling results with k = 16 topics</title>
 
+<script src="site_libs/header-attrs-2.26/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
@@ -40,6 +41,8 @@ div.section {
   padding-top: 12px;
 }
 </style>
+
+
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -68,6 +71,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -88,6 +92,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -145,11 +152,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -178,8 +189,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -187,16 +198,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -240,7 +244,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -266,7 +270,8 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Examine topic modeling results with k = 16 topics</h1>
+<h1 class="title toc-ignore">Examine topic modeling results with k = 16
+topics</h1>
 <h4 class="author">Peter Carbonetto</h4>
 
 </div>
@@ -274,7 +279,9 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -283,7 +290,9 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -292,353 +301,182 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-05-19
+<strong>Last updated:</strong> 2025-05-19
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 2
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
 </p>
 <p>
-<strong>Knit directory:</strong> <code>lps/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>lps/analysis/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
 </p>
 <p>
-This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
 <div id="checks" class="tab-pane fade">
-<div class="panel-group" id="workflowr-checks">
+<div id="workflowr-checks" class="panel-group">
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongobjectspresent"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>Environment:</strong> objects present </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
-<div id="strongEnvironmentstrongobjectspresent" class="panel-collapse collapse">
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
 <div class="panel-body">
-
-<p>
-The global environment had objects present when the code in the R Markdown file was run. These objects can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment. Use <code>wflow_publish</code> or <code>wflow_build</code> to ensure that the code is always run in an empty environment.
-</p>
-<p>
-The following objects were defined in the global environment when these results were created:
-</p>
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th style="text-align:left;">
-Name
-</th>
-<th style="text-align:left;">
-Class
-</th>
-<th style="text-align:left;">
-Size
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-counts
-</td>
-<td style="text-align:left;">
-matrix
-</td>
-<td style="text-align:left;">
-40.9 Mb
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-dat
-</td>
-<td style="text-align:left;">
-list
-</td>
-<td style="text-align:left;">
-77.6 Mb
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-de
-</td>
-<td style="text-align:left;">
-topic_model_de_analysis;list
-</td>
-<td style="text-align:left;">
-48.7 Mb
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-de_merged
-</td>
-<td style="text-align:left;">
-topic_model_de_analysis;list
-</td>
-<td style="text-align:left;">
-42.9 Mb
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-fit
-</td>
-<td style="text-align:left;">
-poisson_nmf_fit;list
-</td>
-<td style="text-align:left;">
-15.8 Mb
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-fit_merged
-</td>
-<td style="text-align:left;">
-multinom_topic_model_fit;list
-</td>
-<td style="text-align:left;">
-13.9 Mb
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-fit2
-</td>
-<td style="text-align:left;">
-multinom_topic_model_fit;list
-</td>
-<td style="text-align:left;">
-8 Mb
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-j
-</td>
-<td style="text-align:left;">
-integer
-</td>
-<td style="text-align:left;">
-1.9 Mb
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-k
-</td>
-<td style="text-align:left;">
-character
-</td>
-<td style="text-align:left;">
-112 bytes
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-p
-</td>
-<td style="text-align:left;">
-gg;ggplot
-</td>
-<td style="text-align:left;">
-100.6 Kb
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-p1
-</td>
-<td style="text-align:left;">
-gg;ggplot
-</td>
-<td style="text-align:left;">
-111.6 Kb
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-p2
-</td>
-<td style="text-align:left;">
-gg;ggplot
-</td>
-<td style="text-align:left;">
-111.6 Kb
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-read_lps_data
-</td>
-<td style="text-align:left;">
-function
-</td>
-<td style="text-align:left;">
-67.7 Kb
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-rows
-</td>
-<td style="text-align:left;">
-integer
-</td>
-<td style="text-align:left;">
-1.5 Kb
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-samples
-</td>
-<td style="text-align:left;">
-data.frame
-</td>
-<td style="text-align:left;">
-9.4 Kb
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-topic_colors
-</td>
-<td style="text-align:left;">
-character
-</td>
-<td style="text-align:left;">
-320 bytes
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-topics
-</td>
-<td style="text-align:left;">
-character
-</td>
-<td style="text-align:left;">
-432 bytes
-</td>
-</tr>
-</tbody>
-</table>
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed1code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(1)</code> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed1code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(1)</code> </a>
 </p>
 </div>
-<div id="strongSeedstrongcodesetseed1code" class="panel-collapse collapse">
+<div id="strongSeedstrongcodesetseed1code"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(1)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p>The command <code>set.seed(1)</code> was run prior to running the
+code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
 </p>
 </div>
-<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
 <div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
 </p>
 </div>
 <div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbolpstree219b2606a0ae97e902a945db9e4d258b4cb3561btargetblank219b260a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pcarbo/lps/tree/219b2606a0ae97e902a945db9e4d258b4cb3561b" target="_blank">219b260</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompcarbolpstree81bea77f4c98caeee3ae5eda856e1d431fe8e055targetblank81bea77a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/pcarbo/lps/tree/81bea77f4c98caeee3ae5eda856e1d431fe8e055" target="_blank">81bea77</a>
+</a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompcarbolpstree219b2606a0ae97e902a945db9e4d258b4cb3561btargetblank219b260a" class="panel-collapse collapse">
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcompcarbolpstree81bea77f4c98caeee3ae5eda856e1d431fe8e055targetblank81bea77a"
+class="panel-collapse collapse">
 <div class="panel-body">
 <p>
-Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/pcarbo/lps/tree/219b2606a0ae97e902a945db9e4d258b4cb3561b" target="_blank">219b260</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version
+<a href="https://github.com/pcarbo/lps/tree/81bea77f4c98caeee3ae5eda856e1d431fe8e055" target="_blank">81bea77</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
 </p>
 <p>
-Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    data/cytokine_combo_2ndrun/counts_cytocombo.csv.gz
     Ignored:    data/raw_read_counts.csv.gz
     Ignored:    output/fit-lps-k=16.RData
-
-Untracked files:
-    Untracked:  analysis/volcano_plot_k1+k5.html
-    Untracked:  analysis/volcano_plot_k1.html
-    Untracked:  analysis/volcano_plot_k10.html
-    Untracked:  analysis/volcano_plot_k11.html
-    Untracked:  analysis/volcano_plot_k12.html
-    Untracked:  analysis/volcano_plot_k13.html
-    Untracked:  analysis/volcano_plot_k14.html
-    Untracked:  analysis/volcano_plot_k15.html
-    Untracked:  analysis/volcano_plot_k16.html
-    Untracked:  analysis/volcano_plot_k2+k13.html
-    Untracked:  analysis/volcano_plot_k2.html
-    Untracked:  analysis/volcano_plot_k3.html
-    Untracked:  analysis/volcano_plot_k4.html
-    Untracked:  analysis/volcano_plot_k5.html
-    Untracked:  analysis/volcano_plot_k6+k14.html
-    Untracked:  analysis/volcano_plot_k6.html
-    Untracked:  analysis/volcano_plot_k7.html
-    Untracked:  analysis/volcano_plot_k8.html
-    Untracked:  analysis/volcano_plot_k9.html
-
-Unstaged changes:
-    Modified:   analysis/examine_topic_model_k16.Rmd
+    Ignored:    output/fits-lps-bytissue.RData
+    Ignored:    output/gsea-lps-k=16-CP+GO-only.RData
+    Ignored:    output/gsea-lps-k=16.RData
 
 </code></pre>
 <p>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
 </p>
 </div>
 </div>
@@ -649,7 +487,13 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/examine_topic_model_k16.Rmd</code>) and HTML (<code>docs/examine_topic_model_k16.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were
+made to the R Markdown
+(<code>analysis/examine_topic_model_k16.Rmd</code>) and HTML
+(<code>docs/examine_topic_model_k16.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -673,6 +517,126 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/lps/blob/81bea77f4c98caeee3ae5eda856e1d431fe8e055/analysis/examine_topic_model_k16.Rmd" target="_blank">81bea77</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2025-05-19
+</td>
+<td>
+wflow_publish("examine_topic_model_k16.Rmd", verbose = TRUE,
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/lps/blob/6419ec8630e78a10aa8cc169f3b433479b3665ce/analysis/examine_topic_model_k16.Rmd" target="_blank">6419ec8</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-06-14
+</td>
+<td>
+Created PDF containing single-topic structure plots.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/lps/blob/a584893fed1f936bac31cf9bcbb1b935b279337b/analysis/examine_topic_model_k16.Rmd" target="_blank">a584893</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-06-14
+</td>
+<td>
+Removed a file that is not needed.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/lps/blob/6b2ab8025895f58654f1f273fa0dab89d121c28f/analysis/examine_topic_model_k16.Rmd" target="_blank">6b2ab80</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-06-13
+</td>
+<td>
+Added metadata csv file; implemented script check_outlier.R.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/lps/blob/0428e4cdc54f3bc36480a37c1687e86c0f55b33b/analysis/examine_topic_model_k16.Rmd" target="_blank">0428e4c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-06-02
+</td>
+<td>
+Added some code to create a PDF of the main structure plot in the
+examine_topic_model_k16 analysis.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pcarbo/lps/blob/abc3e45926f94e02dec6348ccb48717aa38ecc06/analysis/examine_topic_model_k16.Rmd" target="_blank">abc3e45</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-05-19
+</td>
+<td>
+A few small fixes to the examine_topic_model_k16 analysis.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pcarbo/lps/abc3e45926f94e02dec6348ccb48717aa38ecc06/docs/examine_topic_model_k16.html" target="_blank">abc3e45</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-05-19
+</td>
+<td>
+A few small fixes to the examine_topic_model_k16 analysis.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -704,7 +668,7 @@ Peter Carbonetto
 2022-05-10
 </td>
 <td>
-workflowr::wflow_publish(“examine_topic_model_k16.Rmd”, verbose = TRUE)
+workflowr::wflow_publish("examine_topic_model_k16.Rmd", verbose = TRUE)
 </td>
 </tr>
 <tr>
@@ -738,7 +702,7 @@ Peter Carbonetto
 2022-05-10
 </td>
 <td>
-workflowr::wflow_publish(“examine_topic_model_k16.Rmd”, verbose = TRUE)
+workflowr::wflow_publish("examine_topic_model_k16.Rmd", verbose = TRUE)
 </td>
 </tr>
 <tr>
@@ -772,7 +736,7 @@ Peter Carbonetto
 2022-05-10
 </td>
 <td>
-workflowr::wflow_publish(“examine_topic_model_k16.Rmd”, verbose = TRUE)
+workflowr::wflow_publish("examine_topic_model_k16.Rmd", verbose = TRUE)
 </td>
 </tr>
 <tr>
@@ -806,7 +770,7 @@ Peter Carbonetto
 2022-05-10
 </td>
 <td>
-workflowr::wflow_publish(“examine_topic_model_k16.Rmd”, verbose = TRUE)
+workflowr::wflow_publish("examine_topic_model_k16.Rmd", verbose = TRUE)
 </td>
 </tr>
 <tr>
@@ -840,7 +804,7 @@ Peter Carbonetto
 2022-05-05
 </td>
 <td>
-workflowr::wflow_publish(“examine_topic_model_k16.Rmd”)
+workflowr::wflow_publish("examine_topic_model_k16.Rmd")
 </td>
 </tr>
 <tr>
@@ -874,7 +838,7 @@ Peter Carbonetto
 2022-05-04
 </td>
 <td>
-workflowr::wflow_publish(“examine_topic_model_k16.Rmd”, verbose = TRUE)
+workflowr::wflow_publish("examine_topic_model_k16.Rmd", verbose = TRUE)
 </td>
 </tr>
 <tr>
@@ -901,7 +865,6 @@ First build of overview page.
 </div>
 </div>
 </div>
-<p><em>Add text here giving an overview of this analysis.</em></p>
 <p>Load the packages used in the analysis.</p>
 <pre class="r"><code>library(data.table)
 library(fastTopics)
@@ -913,7 +876,21 @@ source(&quot;../code/lps_data.R&quot;)</code></pre>
 <p>Load the count data.</p>
 <pre class="r"><code>dat &lt;- read_lps_data(&quot;../data/raw_read_counts.csv.gz&quot;)
 samples &lt;- dat$samples
-counts  &lt;- dat$counts</code></pre>
+counts  &lt;- dat$counts
+table(samples$tissue)
+table(samples$timepoint)
+table(samples$mouse)
+# 
+#   BM   BR   CO   HE  iLN   KI   LI   LU PBMC   SI   SK   SP   TH 
+#   28   28   28   28   28   28   28   28   28   28   28   28   28 
+# 
+#    d0 d0.25  d0.5    d1    d2    d3    d5 
+#    52    52    52    52    52    52    52 
+# 
+#  1 10 11 12 13 14 15 16 17 18 19  2 20 21 22 23 24 25 26 27 28  3  4  5  6  7 
+# 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 
+#  8  9 
+# 13 13</code></pre>
 <p>Remove genes with very low (or no) expression.</p>
 <pre class="r"><code>j &lt;- which(colSums(counts) &gt; 20)
 counts &lt;- counts[,j]</code></pre>
@@ -954,6 +931,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pcarbo/lps/blob/abc3e45926f94e02dec6348ccb48717aa38ecc06/docs/figure/examine_topic_model_k16.Rmd/plot-progress-1.png" target="_blank">abc3e45</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pcarbo/lps/blob/bef8deb5d1cb8d18f6e8e0a70fdcadd78b1a49a0/docs/figure/examine_topic_model_k16.Rmd/plot-progress-1.png" target="_blank">bef8deb</a>
 </td>
 <td>
@@ -978,7 +966,9 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Visualize the structure identified in each of the tissues using a Structure plot, in which the samples in each tissue are ordered by time in which the sample was taken:</p>
+<p>Visualize the structure identified in each of the tissues using a
+Structure plot, in which the samples in each tissue are ordered by time
+in which the sample was taken:</p>
 <pre class="r"><code>set.seed(1)
 rows &lt;- order(samples$timepoint)
 topic_colors &lt;- c(&quot;darkblue&quot;,&quot;dodgerblue&quot;,&quot;darkorange&quot;,&quot;forestgreen&quot;,
@@ -1017,6 +1007,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pcarbo/lps/blob/abc3e45926f94e02dec6348ccb48717aa38ecc06/docs/figure/examine_topic_model_k16.Rmd/structure-plot-1-1.png" target="_blank">abc3e45</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pcarbo/lps/blob/6dabc4d5b3aa3a6f0014e326cdabec868bc1d0c5/docs/figure/examine_topic_model_k16.Rmd/structure-plot-1-1.png" target="_blank">6dabc4d</a>
 </td>
 <td>
@@ -1030,7 +1031,12 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>There is a single topic (topic 9, blue in the plot below) that is capturing changes in expression over time across many tissues. Two other topics (topics 1 and 6) show similar patterns, except these patterns are specific to two tissues (PBMC and LI).</p>
+<p>See <a href="structure_plots_topic_model_k16.html">here</a> for more
+Structure plots.</p>
+<p>There is a single topic (topic 9, blue in the plot below) that is
+capturing changes in expression over time across many tissues. Two other
+topics (topics 1 and 6) show similar patterns, except these patterns are
+specific to two tissues (PBMC and LI).</p>
 <pre class="r"><code>set.seed(1)
 topic_colors &lt;- c(&quot;gold&quot;,&quot;darkorange&quot;,&quot;dodgerblue&quot;,&quot;white&quot;)
 fit2 &lt;- poisson2multinom(fit)
@@ -1065,6 +1071,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/pcarbo/lps/blob/abc3e45926f94e02dec6348ccb48717aa38ecc06/docs/figure/examine_topic_model_k16.Rmd/structure-plot-2-1.png" target="_blank">abc3e45</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/pcarbo/lps/blob/6dabc4d5b3aa3a6f0014e326cdabec868bc1d0c5/docs/figure/examine_topic_model_k16.Rmd/structure-plot-2-1.png" target="_blank">6dabc4d</a>
 </td>
 <td>
@@ -1078,7 +1095,9 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>These volcano plots summarize the results of the DE analysis for topics capturing different tissues (and topic 9, which is capturing changes in expression at different time points):</p>
+<p>These volcano plots summarize the results of the DE analysis for
+topics capturing different tissues (and topic 9, which is capturing
+changes in expression at different time points):</p>
 <pre class="r"><code>topics &lt;- colnames(de_merged$z)
 p &lt;- vector(&quot;list&quot;,13)
 names(p) &lt;- topics
@@ -1112,6 +1131,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/lps/blob/abc3e45926f94e02dec6348ccb48717aa38ecc06/docs/figure/examine_topic_model_k16.Rmd/volcano-plots-1-1.png" target="_blank">abc3e45</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pcarbo/lps/blob/2e949c096784988c16591f2a384f9cdc22674756/docs/figure/examine_topic_model_k16.Rmd/volcano-plots-1-1.png" target="_blank">2e949c0</a>
@@ -1160,7 +1190,8 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>These volcano plots summarize the results of the DE analysis for topics capturing expression patterns within tissues:</p>
+<p>These volcano plots summarize the results of the DE analysis for
+topics capturing expression patterns within tissues:</p>
 <pre class="r"><code>topics &lt;- c(&quot;k1&quot;,&quot;k2&quot;,&quot;k5&quot;,&quot;k6&quot;,&quot;k13&quot;,&quot;k14&quot;)
 p &lt;- vector(&quot;list&quot;,6)
 names(p) &lt;- topics
@@ -1194,6 +1225,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/pcarbo/lps/blob/abc3e45926f94e02dec6348ccb48717aa38ecc06/docs/figure/examine_topic_model_k16.Rmd/volcano-plots-2-1.png" target="_blank">abc3e45</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-05-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/pcarbo/lps/blob/2e949c096784988c16591f2a384f9cdc22674756/docs/figure/examine_topic_model_k16.Rmd/volcano-plots-2-1.png" target="_blank">2e949c0</a>
@@ -1242,57 +1284,85 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>These results may also be browsed interactively: <a href="volcano_plots/volcano_plot_k1.html">k1</a>, <a href="volcano_plots/volcano_plot_k2.html">k2</a>, <a href="volcano_plots/volcano_plot_k3.html">k3</a>, <a href="volcano_plots/volcano_plot_k4.html">k4</a>, <a href="volcano_plots/volcano_plot_k5.html">k5</a>, <a href="volcano_plots/volcano_plot_k6.html">k6</a>, <a href="volcano_plots/volcano_plot_k7.html">k7</a>, <a href="volcano_plots/volcano_plot_k8.html">k8</a>, <a href="volcano_plots/volcano_plot_k9.html">k9</a>, <a href="volcano_plots/volcano_plot_k10.html">k10</a>, <a href="volcano_plots/volcano_plot_k11.html">k11</a>, <a href="volcano_plots/volcano_plot_k12.html">k12</a>, <a href="volcano_plots/volcano_plot_k13.html">k13</a>, <a href="volcano_plots/volcano_plot_k14.html">k14</a>, <a href="volcano_plots/volcano_plot_k15.html">k15</a>, <a href="volcano_plots/volcano_plot_k16.html">k16</a>, <a href="volcano_plots/volcano_plot_k1+k5.html">k1+k5</a>, <a href="volcano_plots/volcano_plot_k2+k13.html">k2+k13</a>, <a href="volcano_plots/volcano_plot_k6+k14.html">k6+k14</a>.</p>
+<p>These results may also be browsed interactively: <a
+href="volcano_plots/volcano_plot_k1.html">k1</a>, <a
+href="volcano_plots/volcano_plot_k2.html">k2</a>, <a
+href="volcano_plots/volcano_plot_k3.html">k3</a>, <a
+href="volcano_plots/volcano_plot_k4.html">k4</a>, <a
+href="volcano_plots/volcano_plot_k5.html">k5</a>, <a
+href="volcano_plots/volcano_plot_k6.html">k6</a>, <a
+href="volcano_plots/volcano_plot_k7.html">k7</a>, <a
+href="volcano_plots/volcano_plot_k8.html">k8</a>, <a
+href="volcano_plots/volcano_plot_k9.html">k9</a>, <a
+href="volcano_plots/volcano_plot_k10.html">k10</a>, <a
+href="volcano_plots/volcano_plot_k11.html">k11</a>, <a
+href="volcano_plots/volcano_plot_k12.html">k12</a>, <a
+href="volcano_plots/volcano_plot_k13.html">k13</a>, <a
+href="volcano_plots/volcano_plot_k14.html">k14</a>, <a
+href="volcano_plots/volcano_plot_k15.html">k15</a>, <a
+href="volcano_plots/volcano_plot_k16.html">k16</a>, <a
+href="volcano_plots/volcano_plot_k1+k5.html">k1+k5</a>, <a
+href="volcano_plots/volcano_plot_k2+k13.html">k2+k13</a>, <a
+href="volcano_plots/volcano_plot_k6+k14.html">k6+k14</a>.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
-<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()
-# R version 3.6.2 (2019-12-12)
-# Platform: x86_64-apple-darwin15.6.0 (64-bit)
-# Running under: macOS Catalina 10.15.7
+# R version 4.3.3 (2024-02-29)
+# Platform: aarch64-apple-darwin20 (64-bit)
+# Running under: macOS 15.4.1
 # 
 # Matrix products: default
-# BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
-# LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+# BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
+# LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
 # 
 # locale:
 # [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+# 
+# time zone: America/Chicago
+# tzcode source: internal
 # 
 # attached base packages:
 # [1] stats     graphics  grDevices utils     datasets  methods   base     
 # 
 # other attached packages:
-# [1] cowplot_1.0.0      ggplot2_3.3.5      fastTopics_0.6-131 data.table_1.12.8 
+# [1] cowplot_1.1.3     ggplot2_3.5.0     fastTopics_0.7-24 data.table_1.15.2
 # 
 # loaded via a namespace (and not attached):
-#  [1] mcmc_0.9-6         fs_1.5.2           progress_1.2.2     httr_1.4.2        
-#  [5] rprojroot_1.3-2    tools_3.6.2        backports_1.1.5    bslib_0.3.1       
-#  [9] utf8_1.1.4         R6_2.4.1           irlba_2.3.3        uwot_0.1.10       
-# [13] DBI_1.1.0          lazyeval_0.2.2     colorspace_1.4-1   withr_2.5.0       
-# [17] tidyselect_1.1.1   prettyunits_1.1.1  compiler_3.6.2     git2r_0.29.0      
-# [21] quantreg_5.54      SparseM_1.78       plotly_4.9.2       labeling_0.3      
-# [25] sass_0.4.0         scales_1.1.0       SQUAREM_2017.10-1  quadprog_1.5-8    
-# [29] pbapply_1.5-1      mixsqp_0.3-46      stringr_1.4.0      digest_0.6.23     
-# [33] rmarkdown_2.11     R.utils_2.11.0     MCMCpack_1.4-5     pkgconfig_2.0.3   
-# [37] htmltools_0.5.2    highr_0.8          fastmap_1.1.0      invgamma_1.1      
-# [41] htmlwidgets_1.5.1  rlang_0.4.11       rstudioapi_0.13    shiny_1.4.0       
-# [45] jquerylib_0.1.4    generics_0.0.2     farver_2.0.1       jsonlite_1.7.2    
-# [49] crosstalk_1.0.0    dplyr_1.0.7        R.oo_1.24.0        magrittr_2.0.1    
-# [53] Matrix_1.2-18      Rcpp_1.0.7         munsell_0.5.0      fansi_0.4.0       
-# [57] lifecycle_1.0.0    R.methodsS3_1.8.1  stringi_1.4.3      whisker_0.4       
-# [61] yaml_2.2.0         MASS_7.3-51.4      Rtsne_0.15         grid_3.6.2        
-# [65] parallel_3.6.2     promises_1.1.0     ggrepel_0.9.1      crayon_1.4.1      
-# [69] lattice_0.20-38    hms_1.1.0          knitr_1.37         pillar_1.6.2      
-# [73] glue_1.4.2         evaluate_0.14      RcppParallel_5.1.5 vctrs_0.3.8       
-# [77] httpuv_1.5.2       MatrixModels_0.4-1 gtable_0.3.0       purrr_0.3.4       
-# [81] tidyr_1.1.3        assertthat_0.2.1   ashr_2.2-54        xfun_0.29         
-# [85] mime_0.8           xtable_1.8-4       coda_0.19-3        later_1.0.0       
-# [89] viridisLite_0.3.0  truncnorm_1.0-8    tibble_3.1.3       workflowr_1.7.0   
-# [93] ellipsis_0.3.2</code></pre>
+#  [1] gtable_0.3.4        xfun_0.42           bslib_0.6.1        
+#  [4] htmlwidgets_1.6.4   ggrepel_0.9.5       lattice_0.22-5     
+#  [7] crosstalk_1.2.1     quadprog_1.5-8      vctrs_0.6.5        
+# [10] tools_4.3.3         generics_0.1.3      parallel_4.3.3     
+# [13] tibble_3.2.1        fansi_1.0.6         highr_0.10         
+# [16] R.oo_1.26.0         pkgconfig_2.0.3     Matrix_1.6-5       
+# [19] SQUAREM_2021.1      RcppParallel_5.1.7  lifecycle_1.0.4    
+# [22] truncnorm_1.0-9     farver_2.1.1        compiler_4.3.3     
+# [25] stringr_1.5.1       git2r_0.33.0        textshaping_0.3.7  
+# [28] progress_1.2.3      munsell_0.5.0       RhpcBLASctl_0.23-42
+# [31] httpuv_1.6.14       htmltools_0.5.8.1   sass_0.4.9         
+# [34] yaml_2.3.8          lazyeval_0.2.2      plotly_4.10.4      
+# [37] crayon_1.5.2        later_1.3.2         pillar_1.9.0       
+# [40] jquerylib_0.1.4     whisker_0.4.1       tidyr_1.3.1        
+# [43] R.utils_2.12.3      uwot_0.2.3          cachem_1.0.8       
+# [46] gtools_3.9.5        tidyselect_1.2.1    digest_0.6.34      
+# [49] Rtsne_0.17          stringi_1.8.3       reshape2_1.4.4     
+# [52] dplyr_1.1.4         purrr_1.0.2         ashr_2.2-66        
+# [55] labeling_0.4.3      rprojroot_2.0.4     fastmap_1.1.1      
+# [58] grid_4.3.3          colorspace_2.1-0    cli_3.6.4          
+# [61] invgamma_1.1        magrittr_2.0.3      utf8_1.2.4         
+# [64] withr_3.0.2         prettyunits_1.2.0   scales_1.3.0       
+# [67] promises_1.2.1      rmarkdown_2.26      httr_1.4.7         
+# [70] workflowr_1.7.1     ragg_1.2.7          R.methodsS3_1.8.2  
+# [73] hms_1.1.3           pbapply_1.7-2       evaluate_1.0.3     
+# [76] knitr_1.45          irlba_2.3.5.1       viridisLite_0.4.2  
+# [79] rlang_1.1.5         Rcpp_1.0.12         mixsqp_0.3-54      
+# [82] glue_1.8.0          jsonlite_1.8.8      plyr_1.8.9         
+# [85] R6_2.5.1            systemfonts_1.0.6   fs_1.6.5</code></pre>
 </div>
 
 
@@ -1307,6 +1377,8 @@ footer is added to webpages before the MathJax javascript. -->
     "HTML-CSS": { availableFonts: ["TeX"] }
   });
 </script>
+
+
 
 
 
