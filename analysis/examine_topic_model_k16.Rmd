@@ -118,7 +118,7 @@ p <- vector("list",13)
 names(p) <- topics
 for (k in topics) {
   p[[k]] <- volcano_plot(de_merged,k = k,ymax = 500) +
-    guides(fill = "none")
+    guides(color = "none")
   volcano_plotly(de_merged,k = k,ymax = 500,
                  file = paste("volcano_plot_",k,".html",sep = ""))
 }
@@ -134,7 +134,7 @@ p <- vector("list",6)
 names(p) <- topics
 for (k in topics) {
   p[[k]] <- volcano_plot(de,k = k,ymax = 300) +
-    guides(fill = "none")
+    guides(color = "none")
   volcano_plotly(de,k = k,ymax = 300,
                  file = paste("volcano_plot_",k,".html",sep = ""))
 }
